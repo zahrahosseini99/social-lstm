@@ -686,9 +686,9 @@ def main():
 
     prefix = ''
     f_prefix = '.'
-    if args.drive is True:
-      prefix='drive/semester_project/social_lstm_final/'
-      f_prefix = 'drive/semester_project/social_lstm_final'
+    if args.drive == True:
+      prefix=os.getcwd()
+      f_prefix = os.getcwd()
 
     model_name = "LSTM"
     method_name = get_method_name(args.method)
@@ -699,16 +699,22 @@ def main():
     plot_file_directory = 'validation'
 
     # Directories
-    if args.num_of_data is 0:
+    if args.num_of_data == 0:
         plot_file_directory = 'test'
 
     # creation of paths
     save_plot_directory = os.path.join(f_prefix, 'plot',method_name, model_name,'plots/')
+    print("Save plot directory: ", save_plot_directory)
     plot_directory = os.path.join(f_prefix, 'plot', method_name, model_name, plot_file_directory)
+    print("Plot directory: ", plot_directory)
     video_directory = os.path.join(f_prefix, 'plot',method_name, model_name,'videos/')
+    print("Video directory: ", video_directory)
     plot_file_name = get_all_file_names(plot_directory)
+    print("Plot file names: ", plot_file_name)
     num_of_data = np.clip(args.num_of_data, 0, len(plot_file_name))
+    print("Number of data: ", num_of_data)
     plot_file_name = random.sample(plot_file_name, num_of_data)
+    print("Plot file names: ", plot_file_name)
 
     
     for file_index in range(len(plot_file_name)):
@@ -739,11 +745,6 @@ def main():
 
 
         results = pickle.load(f)
-        result_arr = np.array(results)
-        true_trajectories = np.array(result_arr[:,0])
-        pred_trajectories = np.array(result_arr[:,1])
-        frames = np.array(result_arr[:, 4])
-
         target_id_trajs = []
         args.max_target_ped = np.clip(args.max_target_ped, 0, len(results)-1)
         
@@ -756,7 +757,7 @@ def main():
             name = 'sequence' + str(i).zfill(5)
             print("Now processing seq: ",name)
 
-            if args.num_of_data is 0: #test data visualization
+            if args.num_of_data == 0: #test data visualization
                 target_traj = plot_trajectories(results[i][0], results[i][1], results[i][2], results[i][3], results[i][4], name, figure_save_directory,  args.min_traj ,args.max_ped_ratio, results[i][5], [min_r, max_r, plot_offset], results[i][6])
             else:
                 target_traj =  plot_trajectories(results[i][0], results[i][1], results[i][2], results[i][3],results[i][4], name, figure_save_directory, args.min_traj ,args.max_ped_ratio, results[i][5], [min_r, max_r, plot_offset], 20)

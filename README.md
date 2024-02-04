@@ -33,6 +33,11 @@
 2.  Start train a model >>> **python train/olstm_train/vlstm.train.py - -[Parameter set]**
 3. If necesarry file structure is not exist (which is the initial situation), train script will run make_directories.sh and this command will automatically create file structure
 4. Enjoy!
+5. The command to run the code:
+```
+python train.py --input_size 2 --output_size 5 --rnn_size 128 --batch_size 5 --seq_length 20 --pred_length 12 --num_epochs 30 --save_every 400 --grad_clip 10. --learning_rate 0.003 --decay_rate 0.95 --dropout 0.5 --embedding_size 64 --neighborhood_size 32 --grid_size 4 --maxNumPeds 27 --lambda_param 0.0005 --use_cuda --gru --drive --num_validation 2 --freq_validation 1 --freq_optimizer 8 --grid
+
+```
 
 ## Results  
 

@@ -79,9 +79,9 @@ def sample_gaussian_2d(mux, muy, sx, sy, corr, nodesPresent, look_up):
     for node in range(numNodes):
         if node not in converted_node_present:
             continue
-        mean = [o_mux[node], o_muy[node]]
-        cov = [[o_sx[node]*o_sx[node], o_corr[node]*o_sx[node]*o_sy[node]], 
-                [o_corr[node]*o_sx[node]*o_sy[node], o_sy[node]*o_sy[node]]]
+        mean = [o_mux[node].cpu(), o_muy[node].cpu()]
+        cov = [[o_sx[node].cpu()*o_sx[node].cpu(), o_corr[node].cpu()*o_sx[node].cpu()*o_sy[node].cpu()], 
+                [o_corr[node].cpu()*o_sx[node].cpu()*o_sy[node].cpu(), o_sy[node].cpu()*o_sy[node].cpu()]]
 
         mean = np.array(mean, dtype='float')
         cov = np.array(cov, dtype='float')

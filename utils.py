@@ -48,7 +48,7 @@ class DataLoader():
         self.base_validation_path = 'data/validation/'
 
         # check infer flag, if true choose test directory as base directory
-        if infer is False:
+        if infer == False:
             self.base_data_dirs = base_train_dataset
         else:
             self.base_data_dirs = base_test_dataset
@@ -71,7 +71,7 @@ class DataLoader():
 
         # check validation dataset availibility and clip the reuqested number if it is bigger than available validation dataset
         if self.additional_validation:
-            if len(self.validation_dataset) is 0:
+            if len(self.validation_dataset) == 0:
                 print("There is no validation dataset.Aborted.")
                 self.additional_validation = False
             else:
@@ -79,7 +79,7 @@ class DataLoader():
                 self.validation_dataset = random.sample(self.validation_dataset, num_of_validation)
 
         # if not infer mode, use train dataset
-        if infer is False:
+        if infer == False:
             self.data_dirs = self.train_dataset
         else:
             # use validation dataset
@@ -210,22 +210,22 @@ class DataLoader():
             column_names = ['frame_num','ped_id','y','x']
 
             # if training mode, read train file to pandas dataframe and process
-            if self.infer is False:
+            if self.infer == False:
                 df = pd.read_csv(directory, dtype={'frame_num':'int','ped_id':'int' }, delimiter = ' ',  header=None, names=column_names)
-                self.target_ids = np.array(df.drop_duplicates(subset={'ped_id'}, keep='first', inplace=False)['ped_id'])
+                self.target_ids = np.array(df.drop_duplicates(subset=['ped_id'], keep='first', inplace=False)['ped_id'])
 
 
             else:
                 # if validation mode, read validation file to pandas dataframe and process
                 if self.additional_validation:
                     df = pd.read_csv(directory, dtype={'frame_num':'int','ped_id':'int' }, delimiter = ' ',  header=None, names=column_names)
-                    self.target_ids = np.array(df.drop_duplicates(subset={'ped_id'}, keep='first', inplace=False)['ped_id'])
+                    self.target_ids = np.array(df.drop_duplicates(subset=['ped_id'], keep='first', inplace=False)['ped_id'])
 
                 # if test mode, read test file to pandas dataframe and process
                 else:
                     column_names = ['frame_num','ped_id','y','x']
                     df = pd.read_csv(directory, dtype={'frame_num':'int','ped_id':'int' }, delimiter = ' ',  header=None, names=column_names, converters = {c:lambda x: float('nan') if x == '?' else float(x) for c in ['y','x']})
-                    self.target_ids = np.array(df[df['y'].isnull()].drop_duplicates(subset={'ped_id'}, keep='first', inplace=False)['ped_id'])
+                    self.target_ids = np.array(df[df['y'].isnull()].drop_duplicates(subset=['ped_id'], keep='first', inplace=False)['ped_id'])
 
             # convert pandas -> numpy array
             data = np.array(df)
@@ -597,10 +597,10 @@ class DataLoader():
 
     def get_file_name(self, offset=0, pointer_type = 'train'):
         #return file name of processing or pointing by dataset pointer
-        if pointer_type is 'train':
+        if pointer_type == 'train':
             return self.data_dirs[self.dataset_pointer+offset].split('/')[-1]
          
-        elif pointer_type is 'valid':
+        elif pointer_type == 'valid':
             return self.data_dirs[self.valid_dataset_pointer+offset].split('/')[-1]
 
     def create_folder_file_dict(self):

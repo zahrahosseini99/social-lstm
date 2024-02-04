@@ -12,8 +12,8 @@ from model import SocialModel
 from utils import DataLoader
 from grid import getSequenceGridMask
 from helper import *
-
-
+from torch.utils.tensorboard import SummaryWriter 
+tensorboard_writer = SummaryWriter()
 def main():
     
     parser = argparse.ArgumentParser()
@@ -90,20 +90,26 @@ def main():
                         help='Whether store grids and use further epoch')
     
     args = parser.parse_args()
-    
+    log_directory = os.path.join(os.getcwd(), 'logs')
+    #tensorboard_writer = SummaryWriter(log_dir=os.path.join(log_directory, f"{args.num_epochs}_epochs_{time.strftime('%Y%m%d_%H%M%S')}"))
     train(args)
+    tensorboard_writer.flush()
 
 
 def train(args):
+    #log directory 
+    log_directory = os.path.join(os.getcwd(), 'logs')
+    
     origin = (0,0)
+
     reference_point = (0,1)
     validation_dataset_executed = False
   
     prefix = ''
     f_prefix = '.'
-    if args.drive is True:
-      prefix='drive/semester_project/social_lstm_final/'
-      f_prefix = 'drive/semester_project/social_lstm_final'
+    if args.drive == True:
+      prefix= os.getcwd()
+      f_prefix = os.getcwd()
 
     
     if not os.path.isdir("log/"):
@@ -198,7 +204,7 @@ def train(args):
             loss_batch = 0
             
             #if we are in a new dataset, zero the counter of batch
-            if dataset_pointer_ins_grid is not dataloader.dataset_pointer and epoch is not 0:
+            if dataset_pointer_ins_grid != dataloader.dataset_pointer and epoch != 0:
                 num_batch = 0
                 dataset_pointer_ins_grid = dataloader.dataset_pointer
 
@@ -219,7 +225,7 @@ def train(args):
 
                 #grid mask calculation and storage depending on grid parameter
                 if(args.grid):
-                    if(epoch is 0):
+                    if(epoch == 0):
                         grid_seq = getSequenceGridMask(x_seq, dataset_data, PedsList_seq,args.neighborhood_size, args.grid_size, args.use_cuda)
                         grids[dataloader.dataset_pointer].append(grid_seq)
                     else:
@@ -314,6 +320,7 @@ def train(args):
                 
                 # Compute loss
                 loss = Gaussian2DLikelihood(outputs, x_seq, PedsList_seq, lookup_seq)
+                tensorboard_writer.add_scalar("Training/Loss", loss.item(), epoch * dataloader.num_batches + batch)
                 loss_batch += loss.item()
 
                 # Compute gradients
@@ -357,7 +364,7 @@ def train(args):
                 loss_batch = 0
                 err_batch = 0
 
-
+                tensorboard_writer.add_scalar("Validation/Loss", loss_epoch, epoch)
                 # For each sequence
                 for sequence in range(dataloader.batch_size):
                     # Get data corresponding to the current sequence
@@ -421,7 +428,7 @@ def train(args):
                 err_batch = err_batch / dataloader.batch_size
                 loss_epoch += loss_batch
                 err_epoch += err_batch
-
+            tensorboard_writer.add_scalar("LearningRate", learning_rate, epoch)
             if dataloader.valid_num_batches != 0:            
                 loss_epoch = loss_epoch / dataloader.valid_num_batches
                 err_epoch = err_epoch / dataloader.num_batches
@@ -467,8 +474,8 @@ def train(args):
                 # Get batch data
                 x, y, d , numPedsList, PedsList ,target_ids = dataloader.next_batch()
 
-                if dataset_pointer_ins is not dataloader.dataset_pointer:
-                    if dataloader.dataset_pointer is not 0:
+                if dataset_pointer_ins != dataloader.dataset_pointer:
+                    if dataloader.dataset_pointer != 0:
                         print('Finished prosessed file : ', dataloader.get_file_name(-1),' Avarage error : ', err_epoch/num_of_batch)
                         num_of_batch = 0
                         epoch_result.append(results)
