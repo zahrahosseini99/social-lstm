@@ -1,0 +1,193 @@
+{
+    "os": "Linux-5.15.133.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "python": "3.11.5",
+    "heartbeatAt": "2024-02-04T18:20:50.843483",
+    "startedAt": "2024-02-04T18:20:48.193753",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--input_size",
+        "2",
+        "--output_size",
+        "5",
+        "--rnn_size",
+        "128",
+        "--batch_size",
+        "5",
+        "--seq_length",
+        "20",
+        "--pred_length",
+        "12",
+        "--num_epochs",
+        "5",
+        "--save_every",
+        "400",
+        "--grad_clip",
+        "10.",
+        "--learning_rate",
+        "0.003",
+        "--decay_rate",
+        "0.95",
+        "--dropout",
+        "0.5",
+        "--embedding_size",
+        "64",
+        "--neighborhood_size",
+        "32",
+        "--grid_size",
+        "4",
+        "--maxNumPeds",
+        "27",
+        "--lambda_param",
+        "0.0005",
+        "--use_cuda",
+        "--gru",
+        "--drive",
+        "--num_validation",
+        "2",
+        "--freq_validation",
+        "1",
+        "--freq_optimizer",
+        "8",
+        "--grid"
+    ],
+    "state": "running",
+    "program": "/mnt/c/Research/eye-contact/github projects/social-lstm/train.py",
+    "codePathLocal": "train.py",
+    "codePath": "train.py",
+    "git": {
+        "remote": "https://github.com/zahrahosseini99/social-lstm.git",
+        "commit": "230e2f35684f3f4e9c60ce08f340609715d384b8"
+    },
+    "email": "hosseini99.zahra@gmail.com",
+    "root": "/mnt/c/Research/eye-contact/github projects/social-lstm",
+    "host": "DESKTOP-U0CV6TQ",
+    "username": "zari",
+    "executable": "/home/zari/miniconda3/envs/eye-track/bin/python",
+    "cpu_count": 10,
+    "cpu_count_logical": 20,
+    "cpu_freq": {
+        "current": 2918.3980000000006,
+        "min": 0.0,
+        "max": 0.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        },
+        {
+            "current": 2918.398,
+            "min": 0.0,
+            "max": 0.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 1006.853931427002,
+            "used": 15.321647644042969
+        }
+    },
+    "gpu": "NVIDIA GeForce RTX 3080 Ti Laptop GPU",
+    "gpu_count": 1,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA GeForce RTX 3080 Ti Laptop GPU",
+            "memory_total": 17179869184
+        }
+    ],
+    "memory": {
+        "total": 31.185894012451172
+    }
+}

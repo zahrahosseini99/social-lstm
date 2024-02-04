@@ -1,0 +1,98 @@
+wandb_version: 1
+
+input_size:
+  desc: null
+  value: 2
+output_size:
+  desc: null
+  value: 5
+rnn_size:
+  desc: null
+  value: 128
+batch_size:
+  desc: null
+  value: 5
+seq_length:
+  desc: null
+  value: 20
+pred_length:
+  desc: null
+  value: 12
+num_epochs:
+  desc: null
+  value: 30
+save_every:
+  desc: null
+  value: 400
+grad_clip:
+  desc: null
+  value: 10.0
+learning_rate:
+  desc: null
+  value: 0.003
+decay_rate:
+  desc: null
+  value: 0.95
+dropout:
+  desc: null
+  value: 0.5
+embedding_size:
+  desc: null
+  value: 64
+neighborhood_size:
+  desc: null
+  value: 32
+grid_size:
+  desc: null
+  value: 4
+maxNumPeds:
+  desc: null
+  value: 27
+lambda_param:
+  desc: null
+  value: 0.0005
+use_cuda:
+  desc: null
+  value: true
+gru:
+  desc: null
+  value: true
+drive:
+  desc: null
+  value: true
+num_validation:
+  desc: null
+  value: 2
+freq_validation:
+  desc: null
+  value: 1
+freq_optimizer:
+  desc: null
+  value: 8
+grid:
+  desc: null
+  value: true
+_wandb:
+  desc: null
+  value:
+    python_version: 3.11.5
+    cli_version: 0.16.2
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1707071938.973884
+    t:
+      1:
+      - 1
+      - 55
+      2:
+      - 1
+      - 55
+      3:
+      - 16
+      - 23
+      4: 3.11.5
+      5: 0.16.2
+      8:
+      - 5
+      13: linux-x86_64

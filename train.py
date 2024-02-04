@@ -12,8 +12,7 @@ from model import SocialModel
 from utils import DataLoader
 from grid import getSequenceGridMask
 from helper import *
-from torch.utils.tensorboard import SummaryWriter 
-tensorboard_writer = SummaryWriter()
+import wandb
 def main():
     
     parser = argparse.ArgumentParser()
@@ -91,9 +90,9 @@ def main():
     
     args = parser.parse_args()
     log_directory = os.path.join(os.getcwd(), 'logs')
-    #tensorboard_writer = SummaryWriter(log_dir=os.path.join(log_directory, f"{args.num_epochs}_epochs_{time.strftime('%Y%m%d_%H%M%S')}"))
+    wandb.init(project="social-lstm", config=args)
     train(args)
-    tensorboard_writer.flush()
+
 
 
 def train(args):
@@ -320,7 +319,7 @@ def train(args):
                 
                 # Compute loss
                 loss = Gaussian2DLikelihood(outputs, x_seq, PedsList_seq, lookup_seq)
-                tensorboard_writer.add_scalar("Training/Loss", loss.item(), epoch * dataloader.num_batches + batch)
+                wandb.log({"Training/Loss": loss.item(), "epoch": epoch})
                 loss_batch += loss.item()
 
                 # Compute gradients
@@ -364,7 +363,7 @@ def train(args):
                 loss_batch = 0
                 err_batch = 0
 
-                tensorboard_writer.add_scalar("Validation/Loss", loss_epoch, epoch)
+                wandb.log({"Validation/Loss": loss_epoch, "epoch": epoch})  # Log validation loss
                 # For each sequence
                 for sequence in range(dataloader.batch_size):
                     # Get data corresponding to the current sequence
@@ -428,7 +427,7 @@ def train(args):
                 err_batch = err_batch / dataloader.batch_size
                 loss_epoch += loss_batch
                 err_epoch += err_batch
-            tensorboard_writer.add_scalar("LearningRate", learning_rate, epoch)
+            wandb.log({"LearningRate": learning_rate, "epoch": epoch})  # Log learning rate
             if dataloader.valid_num_batches != 0:            
                 loss_epoch = loss_epoch / dataloader.valid_num_batches
                 err_epoch = err_epoch / dataloader.num_batches
